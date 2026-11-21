@@ -1,28 +1,26 @@
-# Gradle
+# Local SDK path (machine-specific — never commit)
+local.properties
+
+# Gradle / build outputs
 .gradle/
 build/
 **/build/
-out/
+*.class
+*.jar
+!gradle/wrapper/gradle-wrapper.jar
 
-# Local config
-local.properties
-*.iml
+# IDE
 .idea/
-.DS_Store
+*.iml
+*.ipr
+*.iws
 
-# Keystores / secrets
+# Local files / secrets
 *.jks
 *.keystore
-*.p12
 keystore.properties
-
-# Android
 *.apk
-*.aab
-*.ap_
-*.dex
-*.log
 
-# Misc
-*.tmp
-*.bak
+# OS
+.DS_Store
+Thumbs.db
