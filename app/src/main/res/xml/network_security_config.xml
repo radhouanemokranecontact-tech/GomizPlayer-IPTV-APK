@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Network Security Config (Android 7+ / API 24+)
+
+  Strategy: IPTV playlists are user-supplied and many channels still use plain
+  http:// streams. A global cleartext ban would break real sources, so we keep
+  cleartext allowed in the base config (preserving current behaviour) but force
+  HTTPS on every domain that carries sensitive data: weather, prayer times,
+  IP geolocation, and GitHub (update checks).
+-->
+<network-security-config>
+
+    <!-- Default: preserve existing behaviour for user-supplied IPTV streams. -->
+    <base-config cleartextTrafficPermitted="true">
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+    </base-config>
+
+    <!-- Sensitive endpoints: TLS only, never downgrade to http. -->
+    <domain-config cleartextTrafficPermitted="false">
+        <domain includeSubdomains="true">open-meteo.com</domain>
+        <domain includeSubdomains="true">aladhan.com</domain>
+        <domain includeSubdomains="true">ipwho.is</domain>
+        <domain includeSubdomains="true">github.com</domain>
+        <domain includeSubdomains="true">githubusercontent.com</domain>
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+    </domain-config>
+
+    <!-- Allow debugging proxies / self-signed CAs in debug builds only. -->
+    <debug-overrides>
+        <trust-anchors>
+            <certificates src="user" />
+        </trust-anchors>
+    </debug-overrides>
+
+</network-security-config>
