@@ -37,9 +37,41 @@ class MediaDownloadRepository(private val context: Context) {
         .build()
 
     private val dir = File(context.filesDir, "media").apply { mkdirs() }
+    private val appContext = context.applicationContext
 
     fun recordingsDir() = File(dir, "recordings").apply { mkdirs() }
     fun downloadsDir() = File(dir, "downloads").apply { mkdirs() }
+
+    /**
+     * B1: optional custom folders via Storage Access Framework (SAF).
+     * When a content:// tree Uri is configured in settings, copy the finished
+     * file into that folder using ContentResolver.openOutputStream. The internal
+     * file remains the source of truth (used by list* and playback), so existing
+     * behaviour is preserved and nothing breaks if SAF is unavailable.
+     */
+    /** Read a configured SAF tree Uri from the JSON store (settings), non-fatal. */
+    private fun customFolder(forDownloads: Boolean): String = try {
+        val s = (appContext as? com.gomizplayer.iptv.GomizApp)?.store?.data?.value?.settings
+        if (forDownloads) s?.downloadDirUri.orEmpty() else s?.recordingDirUri.orEmpty()
+    } catch (_: Exception) { "" }
+
+    private fun exportToCustomFolder(uriString: String, source: File, displayName: String) {
+        if (uriString.isBlank()) return
+        try {
+            val treeUri = android.net.Uri.parse(uriString)
+            val resolver = appContext.contentResolver
+            val childrenUri = android.provider.DocumentsContract.buildDocumentUriUsingTree(
+                treeUri,
+                android.provider.DocumentsContract.getTreeDocumentId(treeUri) ?: return
+            )
+            val created = android.provider.DocumentsContract.createDocument(
+                resolver, childrenUri, "video/mp4", displayName
+            ) ?: return
+            resolver.openOutputStream(created)?.use { out ->
+                source.inputStream().use { inp -> inp.copyTo(out) }
+            }
+        } catch (_: Exception) { /* SAF unavailable / revoked — keep internal copy only */ }
+    }
 
     @Volatile private var recording = false
     private var lastTs: File? = null
@@ -72,12 +104,15 @@ class MediaDownloadRepository(private val context: Context) {
         val remixed = withContext(Dispatchers.IO) {
             FFmpegKit.execute("-i \"${ts.absolutePath}\" -c copy -movflags +faststart -y \"${mp4.absolutePath}\"")
         }
-        return if (ReturnCode.isSuccess(remixed.returnCode)) {
+        val result = if (ReturnCode.isSuccess(remixed.returnCode)) {
             runCatching { ts.delete() }
             mp4
         } else {
             ts
         }
+        // B1: mirror to user-chosen folder if configured (non-fatal).
+        exportToCustomFolder(customFolder(false), result, result.name)
+        return result
     }
 
     /** Download a VOD URL (M3U/m3u8 or progressive mp4/ts) to an mp4 file. Blocking; returns Result. */
@@ -90,17 +125,20 @@ class MediaDownloadRepository(private val context: Context) {
                     recordHls(url, ts, headers, stopWhenDone = true)
                     val mp4 = File(ts.parentFile, ts.name.removeSuffix(".ts.part") + ".mp4")
                     val remixed = FFmpegKit.execute("-i \"${ts.absolutePath}\" -c copy -movflags +faststart -y \"${mp4.absolutePath}\"")
-                    if (ReturnCode.isSuccess(remixed.returnCode)) {
+                    val final = if (ReturnCode.isSuccess(remixed.returnCode)) {
                         ts.delete()
-                        Result.success(mp4)
+                        mp4
                     } else {
                         val renamed = File(ts.parentFile, ts.name.removeSuffix(".part"))
                         runCatching { ts.renameTo(renamed) }
-                        Result.success(renamed)
+                        renamed
                     }
+                    exportToCustomFolder(customFolder(true), final, final.name)
+                    Result.success(final)
                 } else {
                     val out = File(downloadsDir(), "$safe-${System.currentTimeMillis()}.mp4")
                     copyProgressive(url, out, headers, stopWhenDone = true)
+                    exportToCustomFolder(customFolder(true), out, out.name)
                     Result.success(out)
                 }
             } catch (e: Exception) {
