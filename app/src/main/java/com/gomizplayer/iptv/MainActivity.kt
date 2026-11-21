@@ -22,6 +22,12 @@ class MainActivity : ComponentActivity() {
         setContent { AppRoot() }
     }
 
+    override fun onStop() {
+        // Flush any debounced store writes before the process may be suspended.
+        try { (application as GomizApp).store.flush() } catch (_: Exception) {}
+        super.onStop()
+    }
+
     private fun applyStoredLocale(base: Context): Context {
         val lang = readStoredLanguage(base) ?: return base
         val locale = Locale(lang)

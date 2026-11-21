@@ -37,6 +37,7 @@ class Store(context: Context) {
     companion object {
         private const val BACKUP_COUNT = 3
         private const val BACKUP_EVERY_MS = 30 * 60 * 1000L
+        private const val DEBOUNCE_MS = 2000L
     }
 
     private val backupDir: File = File(context.filesDir, "backups").apply { mkdirs() }
@@ -142,8 +143,32 @@ class Store(context: Context) {
         } catch (_: Exception) { /* keep running; data stays in memory */ }
     }
 
+    /**
+     * Debounced persistence: repeated rapid updates (e.g. playback progress every
+     * 5s) coalesce into a single disk write after [DEBOUNCE_MS].
+     * Call [flush] (or [shutdown]) to force an immediate write.
+     */
+    private val persistHandler = android.os.Handler(android.os.Looper.getMainLooper())
+    private val persistRunnable = Runnable { persist() }
+    @Volatile private var persistPending = false
+
     private fun update(block: (AppData) -> AppData) {
         _data.update(block)
+        schedulePersist()
+    }
+
+    private fun schedulePersist() {
+        if (persistPending) return
+        persistPending = true
+        persistHandler.removeCallbacks(persistRunnable)
+        persistHandler.postDelayed(persistRunnable, DEBOUNCE_MS)
+    }
+
+    /** Force an immediate write (call from settings changes / on app pause). */
+    @Synchronized
+    fun flush() {
+        persistHandler.removeCallbacks(persistRunnable)
+        persistPending = false
         persist()
     }
 

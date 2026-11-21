@@ -49,7 +49,10 @@ fun LockScreen(onUnlocked: () -> Unit) {
         if (PinStore.verify(context, entered)) {
             onUnlocked()
         } else {
-            error = "Incorrect PIN"
+            val wait = PinStore.lockedForMs(context)
+            error = if (wait > 0)
+                "Too many attempts — try again in ${(wait / 1000) + 1}s"
+            else "Incorrect PIN"
             entered = ""
         }
     }

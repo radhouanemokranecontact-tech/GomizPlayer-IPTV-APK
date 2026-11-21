@@ -17,9 +17,11 @@
 3. كلمة المرور موجودة في `keystore-password.txt` داخل نفس المجلد.
 
 ### البناء محلياً
+> كلمة المرور **لم تعد في ملف نصي** — مُخزَّنة الآن في Windows Credential Manager تحت الاسم `GomizSigning/Keystore`.
+> استرجاعها: `$pw = (cmdkey /list: GomizSigning/Keystore | Out-String)` أو عبر مدير بيانات الاعتماد في لوحة التحكم.
 ```powershell
 $dir = "C:\Users\Radhouanemokrane\Documents\GomizSigning"
-$pw  = Get-Content "$dir\keystore-password.txt" -Raw
+$pw  = Read-Host "Keystore password" -AsSecureString   # أو استرجعها من Credential Manager
 $env:GOMIZ_KEYSTORE = "$dir\gomiz-release.jks"
 $env:GOMIZ_KEYSTORE_PASSWORD = $pw
 $env:GOMIZ_KEY_ALIAS = "gomiz"
