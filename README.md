@@ -2,6 +2,9 @@
 
 [English](#english) | [العربية](#العربية)
 
+📘 **الدليل التقني الشامل:** [TECHNICAL_GUIDE.md](TECHNICAL_GUIDE.md) — يشرح التطبيق كما يُستخدم فعلياً، مع كل الميزات والتفاصيل التقنية والحدود المعروفة.
+📘 **Full technical guide:** [TECHNICAL_GUIDE.md](TECHNICAL_GUIDE.md) — what the app really does, internals and known limits.
+
 ## English
 
 Gomiz Player IPTV is a native Android TV / Google TV and Android phone IPTV player built with **Kotlin**, **Jetpack Compose**, **AndroidX Media3 (ExoPlayer)** and **FFmpegKit**.
