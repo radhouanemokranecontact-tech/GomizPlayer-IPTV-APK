@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>GomizPlayer IPTV — Privacy Policy</title>
+<style>body{font-family:system-ui,sans-serif;max-width:800px;margin:40px auto;padding:0 20px;line-height:1.6}</style>
+</head>
+<body>
+<h1>GomizPlayer IPTV — Privacy Policy</h1>
+<p><strong>Last updated:</strong> 18 November 2026</p>
+<h2>Overview</h2>
+<p>GomizPlayer IPTV is a media player for Android TV and phones. It does not collect, sell, or share personal data. It only processes data you provide (IPTV sources, favourites, history) locally on your device.</p>
+<h2>Data stored on-device</h2>
+<ul>
+<li>IPTV source URLs, usernames, passwords — stored encrypted via Android Keystore (AES-GCM)</li>
+<li>Favourites, watch history, search history, profiles — stored in local app storage (gomizplayer.json)</li>
+<li>App lock PIN — stored as SHA-256 hash in device-private SharedPreferences</li>
+</ul>
+<h2>Network requests</h2>
+<ul>
+<li>Weather (Open-Meteo), prayer times (Aladhan), geolocation (ipwho.is) — sent only if enabled in Settings; no account or advertising identifiers are sent</li>
+<li>Your IPTV provider — credentials sent directly to the provider you configure; GomizPlayer never proxies or logs them</li>
+</ul>
+<h2>Diagnostics</h2>
+<p>The "Export diagnostics" feature creates a ZIP on-device containing app info, settings and your source list; it is shared only if you explicitly choose to share it.</p>
+<h2>Permissions</h2>
+<ul>
+<li>INTERNET, ACCESS_NETWORK_STATE — play IPTV streams, fetch EPG/weather/prayer</li>
+<li>leanback — Android TV support</li>
+</ul>
+<h2>Contact</h2>
+<p>GomizPlayer IPTV is maintained as part of the GomizPlayer project. For privacy questions, contact the repository owner via the GitHub project page.</p>
+</body>
+</html>

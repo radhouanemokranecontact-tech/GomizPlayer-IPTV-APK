@@ -1,0 +1,28 @@
+# Gradle
+.gradle/
+build/
+**/build/
+out/
+
+# Local config
+local.properties
+*.iml
+.idea/
+.DS_Store
+
+# Keystores / secrets
+*.jks
+*.keystore
+*.p12
+keystore.properties
+
+# Android
+*.apk
+*.aab
+*.ap_
+*.dex
+*.log
+
+# Misc
+*.tmp
+*.bak

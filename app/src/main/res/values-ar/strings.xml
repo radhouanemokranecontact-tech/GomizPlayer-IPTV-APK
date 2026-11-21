@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="tagline">مشغّل وسائط سطح المكتب ونظام Android TV</string>
+    <string name="app_name">GomizPlayer IPTV</string>
+    <string name="edit">تعديل</string>
+
+    <!-- Tabs (legacy alias) -->
+    <string name="tab_home">الرئيسية</string>
+    <string name="tab_live">البث المباشر</string>
+    <string name="tab_movies">الأفلام</string>
+    <string name="tab_series">المسلسلات</string>
+    <string name="tab_favorites">قائمتي</string>
+    <string name="tab_settings">الإعدادات</string>
+
+    <string name="live_pill">مباشر</string>
+    <string name="latency_behind">متأخر %1$d ث عن البث</string>
+    <string name="add_epg">أضف EPG</string>
+    <string name="quality_auto">تلقائي</string>
+    <string name="aspect_fit">ملائمة</string>
+
+    <!-- Sidebar -->
+    <string name="nav_home">الرئيسية</string>
+    <string name="nav_live">البث المباشر</string>
+    <string name="nav_movies">الأفلام</string>
+    <string name="nav_series">المسلسلات</string>
+    <string name="nav_favorites">قائمتي — البث</string>
+    <string name="nav_my_vod">قائمتي — أفلام ومسلسلات</string>
+    <string name="nav_downloads">التنزيلات</string>
+    <string name="nav_recordings">التسجيلات</string>
+    <string name="nav_sources">المصادر</string>
+    <string name="nav_settings">الإعدادات</string>
+    <string name="tv_guide">دليل البرامج</string>
+    <string name="add_source">إضافة مصدر</string>
+    <string name="view_all">عرض الكل</string>
+    <string name="continue_watching">متابعة المشاهدة</string>
+    <string name="all_channels">كل القنوات</string>
+    <string name="search_channels">ابحث في القنوات…</string>
+    <string name="live_now_tag">الآن</string>
+    <string name="live_next_tag">التالي</string>
+    <string name="epg_fallback_now">بث مباشر</string>
+    <string name="epg_fallback_next">برنامج مستمر</string>
+    <string name="play">تشغيل</string>
+    <string name="items_count_plain">عنصر</string>
+    <string name="clear">مسح</string>
+    <string name="clear_favorites">مسح المفضلة</string>
+    <string name="clear_favorites_q">هل تريد إزالة كل الأفلام والمسلسلات من قائمتك؟</string>
+    <string name="widget_time">التوقيت المحلي</string>
+    <string name="widget_weather">الطقس</string>
+    <string name="widget_prayer">مواقيت الصلاة</string>
+    <string name="next_prayer">الصلاة القادمة</string>
+    <string name="loading">جارٍ التحميل…</string>
+    <string name="location_unavailable">تعذر تحديد الموقع</string>
+
+    <!-- Home -->
+    <string name="home_featured">المميز</string>
+    <string name="section_live_tv">البث المباشر</string>
+    <string name="section_movies">الأفلام</string>
+    <string name="section_series">المسلسلات</string>
+    <string name="section_continue">متابعة المشاهدة</string>
+    <string name="empty_home_title">لا يوجد محتوى بعد</string>
+    <string name="empty_home_body">أضف مصدر IPTV الأول من الإعدادات ← المصادر للبدء في المشاهدة.</string>
+    <string name="empty_open_settings">فتح الإعدادات</string>
+
+    <!-- Catalog -->
+    <string name="search_hint">ابحث عن قناة أو فيلم أو مسلسل…</string>
+    <string name="filter_all">الكل</string>
+    <string name="items_count">%1$d عنصر</string>
+    <string name="channels_count">%1$d قناة</string>
+    <string name="no_results">لا توجد نتائج</string>
+    <string name="loading_sources">جارٍ تحميل المصادر…</string>
+    <string name="refresh">تحديث</string>
+    <string name="refresh_all">تحديث الكل</string>
+
+    <!-- Favorites -->
+    <string name="favorites_tv">قائمتي — البث المباشر</string>
+    <string name="favorites_vod">قائمتي — الأفلام والمسلسلات</string>
+    <string name="favorites_empty">لا يوجد شيء هنا بعد. اضغط على أيقونة القلب في أي قناة أو فيديو لإضافته.</string>
+
+    <!-- Player -->
+    <string name="now_playing">يُعرض الآن</string>
+    <string name="epg_now">الآن: %1$s</string>
+    <string name="epg_next">التالي: %1$s</string>
+    <string name="add_to_list">أضف إلى قائمتي</string>
+    <string name="remove_from_list">أزل من قائمتي</string>
+
+    <!-- Settings -->
+    <string name="settings_title">الإعدادات</string>
+    <string name="settings_profiles">الملفات الشخصية</string>
+    <string name="settings_sources">المصادر</string>
+    <string name="settings_epg">EPG (XMLTV)</string>
+    <string name="settings_language">اللغة</string>
+    <string name="settings_about">حول</string>
+    <string name="back">رجوع</string>
+
+    <!-- Profiles -->
+    <string name="profiles_title">الملفات الشخصية</string>
+    <string name="profiles_current">الملف الحالي: %1$s</string>
+    <string name="profiles_new">اسم الملف الجديد</string>
+    <string name="profiles_create">إنشاء ملف شخصي</string>
+    <string name="profiles_delete">حذف</string>
+    <string name="profiles_switch">تبديل</string>
+    <string name="profiles_active">نشط</string>
+    <string name="profiles_delete_confirm">هل تريد حذف الملف «%1$s»؟ سيتم حذف مفضلاته وسجل المشاهدة.</string>
+    <string name="default_profile">الافتراضي</string>
+
+    <!-- Sources -->
+    <string name="sources_title">المصادر</string>
+    <string name="sources_add">إضافة مصدر</string>
+    <string name="sources_empty">لا توجد مصادر بعد. أضف رابط قائمة M3U أو حساب Xtream Codes.</string>
+    <string name="sources_refreshing">جارٍ التحديث…</string>
+    <string name="source_name">الاسم</string>
+    <string name="source_type">النوع</string>
+    <string name="source_type_m3u">رابط قائمة M3U</string>
+    <string name="source_type_xtream">Xtream Codes</string>
+    <string name="source_url">رابط الخادم / رابط القائمة</string>
+    <string name="source_username">اسم المستخدم</string>
+    <string name="source_password">كلمة المرور</string>
+    <string name="save">حفظ</string>
+    <string name="cancel">إلغاء</string>
+    <string name="delete">حذف</string>
+    <string name="confirm_delete_source">هل تريد حذف المصدر «%1$s»؟</string>
+    <string name="source_test_ok">تم الحفظ — تم تحميل %1$d عنصر.</string>
+    <string name="source_test_fail">تم الحفظ، لكن التحديث فشل: %1$s</string>
+    <string name="name_required">الاسم والرابط مطلوبان.</string>
+    <string name="source_kind_m3u">M3U</string>
+    <string name="source_kind_xtream">Xtream</string>
+    <string name="source_items">%1$d عنصر</string>
+    <string name="source_updated">التحديث: %1$s</string>
+
+    <!-- EPG -->
+    <string name="epg_title">EPG (XMLTV)</string>
+    <string name="epg_body">أضف روابط XMLTV. يعرض GomizPlayer «الآن / التالي» أثناء المشاهدة.</string>
+    <string name="epg_add">إضافة رابط EPG</string>
+    <string name="epg_name">اسم EPG</string>
+    <string name="epg_url">رابط XMLTV</string>
+    <string name="epg_empty">لا توجد مصادر EPG بعد.</string>
+    <string name="epg_remove">إزالة</string>
+    <string name="epg_refresh">تحديث EPG</string>
+    <string name="epg_programmes">%1$d برنامج</string>
+
+    <!-- Language -->
+    <string name="language_title">اللغة</string>
+    <string name="lang_en">English</string>
+    <string name="lang_ar">العربية</string>
+    <string name="lang_fr">Français</string>
+
+    <!-- About -->
+    <string name="about_title">حول GomizPlayer IPTV</string>
+    <string name="about_body">GomizPlayer IPTV — مشغّل البث المباشر والأفلام والمسلسلات لهواتف Android و Android TV. رفيق Android الأصلي لتطبيق Windows.</string>
+    <string name="about_version">الإصدار %1$s (%2$d)</string>
+
+        <string name="categories">الفئات</string>
+    <string name="hide_dupes">إخفاء المكررة</string>
+    <string name="load_more">تحميل المزيد من القنوات</string>
+    <string name="now">الآن</string>
+    <string name="next">القادمة</string>
+<!-- Generic -->
+    <string name="ok">موافق</string>
+    <string name="yes">نعم</string>
+    <string name="no">لا</string>
+    <string name="error">خطأ</string>
+
+    <string name="source_type_single">بث مفرد</string>
+    <string name="edit_source">تعديل المصدر</string>
+    <string name="import_file">استيراد ملف</string>
+    <string name="headers">الترويسات</string>
+    <string name="optional">اختياري</string>
+</resources>

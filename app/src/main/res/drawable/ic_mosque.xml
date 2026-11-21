@@ -1,0 +1,39 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+    <!-- night sky glow -->
+    <path
+        android:pathData="M24,2a22,22 0 1 1 0,44a22,22 0 1 1 0,-44Z"
+        android:fillColor="#1B2A4A" />
+    <!-- crescent moon -->
+    <path
+        android:pathData="M35,8a6,6 0 1 0 5,9a5,5 0 1 1 -5,-9Z"
+        android:fillColor="#FFD86B" />
+    <!-- central dome -->
+    <path
+        android:pathData="M24,14c-5,0 -9,4 -9,9v3h18v-3c0,-5 -4,-9 -9,-9Z"
+        android:fillColor="#E8ECF6" />
+    <!-- dome finial -->
+    <path
+        android:pathData="M24,11v3M22.5,11h3"
+        android:strokeColor="#FFD86B"
+        android:strokeWidth="1.2"
+        android:strokeLineCap="round" />
+    <!-- two minarets -->
+    <path
+        android:pathData="M9,18h4v13H9zM35,18h4v13h-4z"
+        android:fillColor="#D8DEEC" />
+    <path
+        android:pathData="M11,14l1,4h-2zM37,14l1,4h-2z"
+        android:fillColor="#E8ECF6" />
+    <!-- base building -->
+    <path
+        android:pathData="M7,26h34v14H7z"
+        android:fillColor="#C9D2E6" />
+    <!-- arched entrance -->
+    <path
+        android:pathData="M21,40v-6a3,3 0 0 1 6,0v6z"
+        android:fillColor="#2A3A5E" />
+</vector>

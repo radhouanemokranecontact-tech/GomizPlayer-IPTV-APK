@@ -1,0 +1,22 @@
+GomizPlayer IPTV is a native Android TV and phone IPTV player. It plays live TV channels, movies and series from your own M3U playlists or Xtream Codes providers.
+
+Features:
+- Live TV with channel drawer, EPG Now/Next + progress, full timeline guide
+- Movies & series catalogues with posters, detail modal and recommendations
+- M3U/Xtream (username + password) providers; headers, custom user-agent, proxy
+- EPG (XMLTV) with 26-hour window and cache
+- Favourites, watch history, Continue Watching with progress
+- Downloads & recordings via ffmpeg (stream copy) with progress and deletion
+- Profiles (multiple user profiles with separate favourites/history)
+- Player: aspect ratio, seek step, audio track cycling, screenshot, stats, subtitles settings
+- Home widgets: clock, weather (Open-Meteo), prayer times (Aladhan) — Arabic/French/English
+- Light & dark themes, accent color presets
+- App lock (PIN), diagnostics export (ZIP), backup/restore (gomizplayer.json)
+- i18n: English, Français, العربية
+
+Requirements:
+- Android 7.0 (API 24) or newer
+- Android TV (Leanback) or phone
+- Your own IPTV source (M3U URL or Xtream credentials)
+
+GomizPlayer does not provide any content. You are responsible for the legality of the sources you use.

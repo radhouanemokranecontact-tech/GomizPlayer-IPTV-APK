@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="tagline">Lecteur IPTV natif pour Android TV et mobile</string>
+    <string name="app_name">GomizPlayer IPTV</string>
+    <string name="live_pill">EN DIRECT</string>
+    <string name="latency_behind">%1$ds de retard</string>
+    <string name="quality_auto">AUTO</string>
+    <string name="aspect_fit">Adapter</string>
+    <string name="section_continue">Reprendre la lecture</string>
+    <string name="edit">Modifier</string>
+
+    <!-- Tabs (legacy alias) -->
+    <string name="tab_home">Accueil</string>
+    <string name="tab_live">TV en direct</string>
+    <string name="tab_movies">Films</string>
+    <string name="tab_series">Séries</string>
+    <string name="tab_favorites">Ma liste</string>
+    <string name="tab_settings">Réglages</string>
+
+    <!-- Sidebar -->
+    <string name="nav_home">Accueil</string>
+    <string name="nav_live">TV en direct</string>
+    <string name="nav_movies">Films</string>
+    <string name="nav_series">Séries</string>
+    <string name="nav_favorites">Ma liste TV</string>
+    <string name="nav_my_vod">Mes films &amp; séries</string>
+    <string name="nav_downloads">Téléchargements</string>
+    <string name="nav_recordings">Enregistrements</string>
+    <string name="nav_sources">Sources</string>
+    <string name="nav_settings">Réglages</string>
+    <string name="tv_guide">Guide TV</string>
+    <string name="add_source">Ajouter une source</string>
+    <string name="view_all">Voir tout</string>
+    <string name="continue_watching">Reprendre la lecture</string>
+    <string name="play">Lire</string>
+    <string name="items_count_plain">éléments</string>
+    <string name="clear">Effacer</string>
+    <string name="clear_favorites">Effacer les favoris</string>
+    <string name="clear_favorites_q">Supprimer tous les films et séries de vos favoris ?</string>
+    <string name="all_channels">Toutes les chaînes</string>
+    <string name="search_channels">Rechercher des chaînes…</string>
+    <string name="live_now_tag">MAINTENANT</string>
+    <string name="live_next_tag">ENSUITE</string>
+    <string name="epg_fallback_now">Diffusion en direct</string>
+    <string name="epg_fallback_next">Programmation continue</string>
+    <string name="widget_time">Heure locale</string>
+    <string name="widget_weather">Météo</string>
+    <string name="widget_prayer">Horaires de prière</string>
+    <string name="next_prayer">Prochaine prière</string>
+    <string name="loading">Chargement…</string>
+    <string name="location_unavailable">Position indisponible</string>
+
+    <!-- Home -->
+    <string name="home_featured">À la une</string>
+    <string name="section_live_tv">TV en direct</string>
+    <string name="section_movies">Films</string>
+    <string name="section_series">Séries</string>
+    <string name="empty_home_title">Aucun contenu pour l’instant</string>
+    <string name="empty_home_body">Ajoutez votre première source IPTV dans Réglages → Sources pour commencer.</string>
+    <string name="empty_open_settings">Ouvrir les réglages</string>
+
+    <!-- Catalog -->
+    <string name="search_hint">Rechercher des chaînes, films, séries…</string>
+    <string name="filter_all">Tous</string>
+    <string name="items_count">%1$d éléments</string>
+    <string name="channels_count">%1$d chaînes</string>
+    <string name="no_results">Aucun résultat</string>
+    <string name="loading_sources">Chargement des sources…</string>
+    <string name="refresh">Actualiser</string>
+    <string name="refresh_all">Tout actualiser</string>
+
+    <!-- Favorites -->
+    <string name="favorites_tv">Ma liste TV</string>
+    <string name="favorites_vod">Mes films et séries</string>
+    <string name="favorites_empty">Rien pour l’instant. Touchez le cœur sur une chaîne ou une vidéo pour l’ajouter.</string>
+
+    <!-- Player -->
+    <string name="now_playing">En cours</string>
+    <string name="epg_now">Maintenant : %1$s</string>
+    <string name="epg_next">Ensuite : %1$s</string>
+    <string name="add_to_list">Ajouter à ma liste</string>
+    <string name="remove_from_list">Retirer de ma liste</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Réglages</string>
+    <string name="settings_profiles">Profils</string>
+    <string name="settings_sources">Sources</string>
+    <string name="settings_epg">EPG (XMLTV)</string>
+    <string name="settings_language">Langue</string>
+    <string name="settings_about">À propos</string>
+    <string name="back">Retour</string>
+
+    <!-- Profiles -->
+    <string name="profiles_title">Profils</string>
+    <string name="profiles_current">Profil actuel : %1$s</string>
+    <string name="profiles_new">Nom du nouveau profil</string>
+    <string name="profiles_create">Créer le profil</string>
+    <string name="profiles_delete">Supprimer</string>
+    <string name="profiles_switch">Passer</string>
+    <string name="profiles_active">Actif</string>
+    <string name="profiles_delete_confirm">Supprimer le profil « %1$s » ? Ses favoris et son historique seront supprimés.</string>
+    <string name="default_profile">par défaut</string>
+
+    <!-- Sources -->
+    <string name="sources_title">Sources</string>
+    <string name="sources_add">Ajouter une source</string>
+    <string name="sources_empty">Aucune source. Ajoutez un lien M3U ou un compte Xtream Codes.</string>
+    <string name="sources_refreshing">Actualisation…</string>
+    <string name="source_name">Nom</string>
+    <string name="source_type">Type</string>
+    <string name="source_type_m3u">Lien de playlist M3U</string>
+    <string name="source_type_xtream">Xtream Codes</string>
+    <string name="source_url">URL du serveur / URL de la playlist</string>
+    <string name="source_username">Nom d’utilisateur</string>
+    <string name="source_password">Mot de passe</string>
+    <string name="save">Enregistrer</string>
+    <string name="cancel">Annuler</string>
+    <string name="delete">Supprimer</string>
+    <string name="confirm_delete_source">Supprimer la source « %1$s » ?</string>
+    <string name="source_test_ok">Enregistré — %1$d éléments chargés.</string>
+    <string name="source_test_fail">Enregistré, mais l’actualisation a échoué : %1$s</string>
+    <string name="name_required">Le nom et l’URL sont requis.</string>
+    <string name="source_kind_m3u">M3U</string>
+    <string name="source_kind_xtream">Xtream</string>
+    <string name="source_items">%1$d éléments</string>
+    <string name="source_updated">Actualisé : %1$s</string>
+
+    <!-- EPG -->
+    <string name="epg_title">EPG (XMLTV)</string>
+    <string name="epg_body">Ajoutez des URL XMLTV. GomizPlayer affiche « Maintenant / Ensuite » pendant la lecture.</string>
+    <string name="epg_add">Ajouter une URL EPG</string>
+    <string name="epg_name">Nom de l’EPG</string>
+    <string name="epg_url">URL XMLTV</string>
+    <string name="epg_empty">Aucune source EPG pour l’instant.</string>
+    <string name="epg_remove">Retirer</string>
+    <string name="epg_refresh">Actualiser l’EPG</string>
+    <string name="epg_programmes">%1$d programmes</string>
+
+    <!-- Language -->
+    <string name="language_title">Langue</string>
+    <string name="lang_en">English</string>
+    <string name="lang_ar">العربية</string>
+    <string name="lang_fr">Français</string>
+
+    <!-- About -->
+    <string name="about_title">À propos de GomizPlayer IPTV</string>
+    <string name="about_body">GomizPlayer IPTV — lecteur de TV en direct, films et séries pour téléphones Android et Android TV. Le compagnon Android natif de l’application Windows.</string>
+    <string name="about_version">Version %1$s (%2$d)</string>
+
+        <string name="categories">Categories</string>
+    <string name="hide_dupes">Masquer les doublons</string>
+    <string name="load_more">Charger plus de chaînes</string>
+    <string name="now">MAINTENANT</string>
+    <string name="next">ENSUITE</string>
+<!-- Generic -->
+    <string name="ok">OK</string>
+    <string name="yes">Oui</string>
+    <string name="no">Non</string>
+    <string name="error">Erreur</string>
+    <string name="source_type_single">Flux unique</string>
+    <string name="edit_source">Modifier la source</string>
+    <string name="import_file">Importer un fichier</string>
+    <string name="headers">En-têtes</string>
+    <string name="optional">facultatif</string>
+</resources>
