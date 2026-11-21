@@ -33,6 +33,60 @@ class Store(context: Context) {
     private val _data = MutableStateFlow(load())
     val data: StateFlow<AppData> = _data.asStateFlow()
 
+    // ---------- backup / recovery ----------
+    companion object {
+        private const val BACKUP_COUNT = 3
+        private const val BACKUP_EVERY_MS = 30 * 60 * 1000L
+    }
+
+    private val backupDir: File = File(context.filesDir, "backups").apply { mkdirs() }
+    private var lastBackupAt = 0L
+
+    /** Human-readable backup info for the Settings screen. */
+    data class BackupInfo(val name: String, val sizeBytes: Long, val modifiedAt: Long)
+
+    fun listBackups(): List<BackupInfo> = backupDir.listFiles { f ->
+        f.isFile && f.name.startsWith("gomizplayer-") && f.name.endsWith(".json")
+    }?.sortedByDescending { it.lastModified() }?.map {
+        BackupInfo(it.name, it.length(), it.lastModified())
+    } ?: emptyList()
+
+    /** Create a timestamped backup now. Returns its file name, or null on failure. */
+    @Synchronized
+    fun backupNow(): String? = try {
+        rotateBackupsIfNeeded()
+        val name = "gomizplayer-" + java.text.SimpleDateFormat("yyyyMMdd-HHmmss", java.util.Locale.US)
+            .format(java.util.Date()) + ".json"
+        val target = File(backupDir, name)
+        val tmp = File(backupDir, "$name.tmp")
+        tmp.writeText(json.encodeToString(AppData.serializer(), _data.value), Charsets.UTF_8)
+        if (!tmp.renameTo(target)) { tmp.copyTo(target, overwrite = true); tmp.delete() }
+        lastBackupAt = System.currentTimeMillis()
+        target.name
+    } catch (_: Exception) { null }
+
+    private fun rotateBackupsIfNeeded() {
+        val all = backupDir.listFiles { f -> f.isFile && f.name.startsWith("gomizplayer-") && f.name.endsWith(".json") }
+            ?.sortedByDescending { it.lastModified() } ?: return
+        all.drop(BACKUP_COUNT).forEach { it.delete() }
+    }
+
+    /** Restore from a backup file name; validates JSON before replacing live data. */
+    fun restoreBackup(name: String): Result<Unit> {
+        val safe = File(backupDir, name).canonicalFile
+        if (safe.parentFile?.canonicalPath != backupDir.canonicalPath) return Result.failure(IllegalArgumentException("Invalid backup"))
+        return try {
+            val decoded = json.decodeFromString(AppData.serializer(), safe.readText(Charsets.UTF_8))
+            // keep a safety copy of current data before restoring
+            backupNow()
+            _data.value = decoded
+            persist()
+            Result.success(Unit)
+        } catch (e: Exception) { Result.failure(e) }
+    }
+
+    fun backupDirectory(): String = backupDir.absolutePath
+
     fun snapshot(): String = json.encodeToString(AppData.serializer(), _data.value)
 
     /** Replace all app data with the contents of a gomizplayer.json backup. */
@@ -46,19 +100,33 @@ class Store(context: Context) {
     }
 
     private fun load(): AppData {
-        return try {
-            if (file.exists()) {
-                json.decodeFromString(AppData.serializer(), file.readText(Charsets.UTF_8))
-            } else {
-                AppData()
-            }
-        } catch (_: Exception) {
+        if (file.exists()) {
             try {
-                file.copyTo(File(dir, "gomizplayer.corrupt.json"), overwrite = true)
-            } catch (_: Exception) { /* ignore */ }
-            AppData()
+                return json.decodeFromString(AppData.serializer(), file.readText(Charsets.UTF_8))
+            } catch (_: Exception) {
+                // main file is corrupt: keep it for forensics, then try newest backup
+                try { file.copyTo(File(dir, "gomizplayer.corrupt.json"), overwrite = true) } catch (_: Exception) {}
+                val newest = backupDir.listFiles { f ->
+                    f.isFile && f.name.startsWith("gomizplayer-") && f.name.endsWith(".json")
+                }?.maxByOrNull { it.lastModified() }
+                if (newest != null) {
+                    try {
+                        val recovered = json.decodeFromString(AppData.serializer(), newest.readText(Charsets.UTF_8))
+                        _recoveredFromBackup = newest.name
+                        return recovered
+                    } catch (_: Exception) {}
+                }
+            }
         }
+        return AppData()
     }
+
+    /** Set when load() recovered data from a backup (for a one-time UI notice). */
+    var recoveredFromBackup: String? = null
+        private set
+    private var _recoveredFromBackup: String?
+        get() = recoveredFromBackup
+        set(value) { recoveredFromBackup = value }
 
     @Synchronized
     private fun persist() {
@@ -69,6 +137,8 @@ class Store(context: Context) {
                 tmp.copyTo(file, overwrite = true)
                 tmp.delete()
             }
+            // Rolling backup, at most once every 30 minutes.
+            if (System.currentTimeMillis() - lastBackupAt >= BACKUP_EVERY_MS) backupNow()
         } catch (_: Exception) { /* keep running; data stays in memory */ }
     }
 

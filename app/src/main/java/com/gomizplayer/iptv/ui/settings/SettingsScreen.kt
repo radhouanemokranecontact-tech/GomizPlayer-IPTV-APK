@@ -719,6 +719,8 @@ private fun SettingsToggle(label: String, value: Boolean, onChange: (Boolean) ->
 
     var pendingClear by remember { mutableStateOf<String?>(null) }
     var pendingReset by remember { mutableStateOf(false) }
+    var backupTick by remember { mutableStateOf(0) }
+    val backups = remember(backupTick) { app.store.listBackups() }
 
     val importLauncher = androidx.activity.compose.rememberLauncherForActivityResult(
         contract = androidx.activity.result.contract.ActivityResultContracts.OpenDocument()
@@ -756,6 +758,42 @@ private fun SettingsToggle(label: String, value: Boolean, onChange: (Boolean) ->
         Text("Storage", color = colors.text, fontSize = 20.sp, fontWeight = FontWeight.ExtraBold)
         Spacer(Modifier.height(4.dp))
         Text("Storage usage, folders, backup, cleanup.", color = colors.muted, fontSize = 12.sp)
+        Spacer(Modifier.height(16.dp))
+
+        SettingsSectionTitle("Backup & Restore")
+        Text(
+            "Automatic backups are kept in: ${app.store.backupDirectory()}",
+            color = colors.muted, fontSize = 11.sp
+        )
+        Spacer(Modifier.height(6.dp))
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            Button(onClick = {
+                val name = app.store.backupNow()
+                backupTick++
+                Toasts.show(if (name != null) "Backup created: $name" else "Backup failed", isError = name == null)
+            }) { Text("Back up now") }
+            Button(onClick = {
+                val f = java.io.File(app.store.backupDirectory(), "gomizplayer.json")
+                val text = app.store.snapshot()
+                try { f.writeText(text, Charsets.UTF_8); Toasts.show("Exported current data") }
+                catch (e: Exception) { Toasts.show("Export failed: ${e.message}", isError = true) }
+            }) { Text("Export JSON") }
+        }
+        if (backups.isNotEmpty()) {
+            Spacer(Modifier.height(8.dp))
+            backups.take(3).forEach { b ->
+                Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth().padding(vertical = 2.dp)) {
+                    Text(b.name, color = colors.text, fontSize = 12.sp, modifier = Modifier.weight(1f))
+                    Text(fmtBytes(b.sizeBytes), color = colors.muted, fontSize = 11.sp)
+                    Spacer(Modifier.width(8.dp))
+                    Button(onClick = {
+                        val r = app.store.restoreBackup(b.name)
+                        backupTick++
+                        Toasts.show(if (r.isSuccess) "Restored ${b.name}" else "Restore failed", isError = r.isFailure)
+                    }) { Text("Restore") }
+                }
+            }
+        }
         Spacer(Modifier.height(16.dp))
 
         SettingsSectionTitle("Usage")
