@@ -45,6 +45,28 @@ $env:GOMIZ_KEY_PASSWORD = $pw
 
 ---
 
+## توقيع تحديثات PC (Ed25519)
+
+تم توليد زوج مفاتيح Ed25519 لتوقيع ملف `latest.yml` ( manifested التحديث):
+- **المفتاح الخاص**: `C:\Users\Radhouanemokrane\Documents\GomizSigning\update-private-key.pem` ⚠️ **سري — لا تشاركه أبداً**
+- **المفتاح العام** (مُضمَّن في التطبيق): `update-public-key.pem`
+- **keyId**: `2f5e8004ace29b1bc28f460c1c14b6b7d4a294ddf27eb79b0777da9317d33ddb`
+
+### لماذا سكربت مملوك بدل electron-builder 27؟
+electron-builder 27 (الذي يوقّع الـ manifest تلقائياً) ما زال **alpha** — ترقيته تُخاطر باستقرار التطبيق. طبّقنا بديلاً بنفس الحماية:
+1. `scripts/sign-update-manifest.js` يوقّع `RELEASE_MANIFEST.yml` Ed25519.
+2. التطبيق يتحقق من التوقيع (`src/main/manifest-verify.js`) **قبل أي تنزيل** — يرفض manifest غير موقّع أو مُعبَّث.
+3. المفتاح العام مُضمَّن في الكود — لا حاجة لخادم.
+
+### عند كل إصدار جديد
+```powershell
+Copy-Item dist\latest.yml RELEASE_MANIFEST.yml -Force
+node scripts\sign-update-manifest.js RELEASE_MANIFEST.yml "C:\Users\Radhouanemokrane\Documents\GomizSigning\update-private-key.pem"
+# ثم ارفع RELEASE_MANIFEST.yml إلى جذر المستودع + latest.yml إلى الـ Release
+```
+
+---
+
 ## English
 
 ### Current state
