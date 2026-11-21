@@ -12,9 +12,6 @@ permissions:
 jobs:
   android:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: .
     steps:
       - uses: actions/checkout@v4
 
@@ -25,10 +22,10 @@ jobs:
           distribution: 'temurin'
 
       - name: Set up Android SDK
-        uses: android-actions/setup-android@v3
-
-      - name: Install SDK platform
-        run: sdkmanager "platforms;android-37" "build-tools;36.0.0" "platform-tools"
+        uses: amyu/setup-android@v4
+        with:
+          api-level: 37
+          build-tools: 36.0.0
 
       - name: Grant gradlew permission
         run: chmod +x ./gradlew
