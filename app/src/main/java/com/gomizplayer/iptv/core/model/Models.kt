@@ -90,7 +90,6 @@ data class AppSettings(
     val subtitleColor: String = "#FFFFFF",
     val subtitleBg: String = "#00000080",
     val subtitlePosition: String = "bottom",
-    val subtitleDelayMs: Int = 0,
     val subtitleBold: Boolean = false,
     val subtitleScale: Int = 100,
     val subtitleOpacity: Int = 55,
@@ -121,6 +120,8 @@ data class AppSettings(
     val downloadDirUri: String = "",
     val recordingDirUri: String = "",
     val userAgent: String = "GomizPlayer/1.0.2 (Android)",
+    // Legacy proxy fields (kept for backward-compat with old JSON backups).
+    // Runtime uses proxyMode/proxyUrl above; these are shown in System panel only.
     val proxyHost: String = "",
     val proxyPort: Int = 0,
     val proxyEnabled: Boolean = false,

@@ -84,6 +84,9 @@ fun PlayerHost(item: ChannelItem, onClose: () -> Unit, onOpenGuide: (() -> Unit)
     var isRecording by remember { mutableStateOf(false) }
     var recCount by remember { mutableIntStateOf(0) }
     var statsOpen by remember { mutableStateOf(false) }
+// Live latency is unknown without a dedicated metric; -1 means "not available"
+// and the UI hides the pill instead of showing a misleading "0s".
+val liveLatencySeconds: Int = -1
     var infoOpen by remember { mutableStateOf(false) }
     var sleepMinutes by remember { mutableIntStateOf(0) }
     var sleepEndAt by remember { mutableStateOf(0L) }
@@ -125,12 +128,8 @@ fun PlayerHost(item: ChannelItem, onClose: () -> Unit, onOpenGuide: (() -> Unit)
                 playedAt = System.currentTimeMillis()
             )
         )
-        // resume
-        app.store.historyPosition(item.key)?.let { (pos, dur) ->
-            if (pos in 5_000L..(dur * 0.95).toLong().coerceAtLeast(10_000L)) {
-                // will seek after prepare
-            }
-        }
+        // Resume position is applied in DisposableEffect below via
+        // exo.setMediaItem(uri, resumeMs) — no deferred seek needed here.
     }
 
     DisposableEffect(item.key) {
@@ -241,7 +240,7 @@ fun PlayerHost(item: ChannelItem, onClose: () -> Unit, onOpenGuide: (() -> Unit)
                 epg = item.tvgId.takeIf { it.isNotBlank() }?.let { app.epg.nowNext(it).first?.title },
                 aspect = when (aspectIndex) { 0 -> "Fit"; 1 -> "Zoom"; else -> "Fill" },
                 speed = listOf(0.25f, 0.5f, 0.75f, 1.0f, 1.25f, 1.5f, 2.0f)[speedIndex],
-                latency = 0,
+                latency = liveLatencySeconds,
                 modifier = Modifier.align(Alignment.TopEnd).padding(14.dp)
             )
         }
@@ -287,7 +286,7 @@ fun PlayerHost(item: ChannelItem, onClose: () -> Unit, onOpenGuide: (() -> Unit)
 
         PlayerTopBar(
             isLive = false,
-            latencySeconds = null,
+            latencySeconds = liveLatencySeconds.takeIf { it >= 1 },
             onBack = onClose
         )
 
