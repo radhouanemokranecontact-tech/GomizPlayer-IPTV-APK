@@ -30,6 +30,7 @@
     <string name="nav_settings">Réglages</string>
     <string name="tv_guide">Guide TV</string>
     <string name="add_source">Ajouter une source</string>
+    <string name="add_epg">Ajouter un EPG</string>
     <string name="view_all">Voir tout</string>
     <string name="continue_watching">Reprendre la lecture</string>
     <string name="play">Lire</string>

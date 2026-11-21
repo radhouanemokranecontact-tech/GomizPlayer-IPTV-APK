@@ -20,6 +20,7 @@ import java.util.concurrent.TimeUnit
  * Records live streams and downloads (VOD) over HTTP(S) using OkHttp (TLS works everywhere
  * the app can play channels), writing raw MPEG-TS segments, then remuxing locally to MP4
  * with ffmpeg (no network needed). No native TLS required in the bundled ffmpeg build.
+ * FFmpegKit fork is LGPL-3.0 — see THIRD_PARTY_NOTICES.md for attribution and license text.
  */
 class MediaDownloadRepository(private val context: Context) {
 
